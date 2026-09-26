@@ -1445,3 +1445,53 @@ button,a{
   #invite .event-card h3{font-size:clamp(34px,9vw,44px);line-height:1.15}
   #invite .event-date-block{flex-wrap:wrap}
 }
+
+/* Compact event details with touch-friendly inline map links. */
+.event-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+#invite .event-date-block{
+  display:grid;
+  grid-template-columns:auto auto;
+  gap:2px 8px;
+  align-items:center;
+}
+#invite .event-date-block strong{grid-column:1;grid-row:1 / 3;font-size:42px}
+#invite .event-date-block .weekday{grid-column:2;grid-row:1;font-size:15px}
+#invite .event-date-block > span:last-child{grid-column:2;grid-row:2;font-size:15px}
+#invite .event-header .event-time{
+  margin:0;
+  max-width:48%;
+  text-align:right;
+  font-size:10px;
+  line-height:1.6;
+  letter-spacing:.04em;
+}
+#invite .event-tagline{margin-bottom:10px;font-size:18px;line-height:1.4}
+#invite .followed{margin:8px 0;font-size:17px}
+#invite .venue{margin-top:12px;padding-top:10px}
+.venue-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.venue-map{
+  flex:0 0 44px;
+  width:44px;
+  height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#8f1647;
+  border:1px solid rgba(178,31,89,.25);
+  border-radius:50%;
+  background:rgba(178,31,89,.04);
+}
+.venue-map:hover{background:#b21f59;color:#fff}
+.venue-map:focus-visible{outline:2px solid #8f1647;outline-offset:3px}
+#invite .event-card .venue p{margin:4px 0 0;font-size:15px;line-height:1.45}
+#invite .event-artwork{margin-top:14px;aspect-ratio:1.9}
+@media(max-width:740px){
+  #invite .event-card:nth-child(n){padding-top:18px}
+  #invite .event-details h3{margin-bottom:8px}
+}

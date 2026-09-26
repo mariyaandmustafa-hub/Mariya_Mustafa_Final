@@ -838,14 +838,17 @@ body::before{
 .burst-flower{
   position:absolute;
   left:50%;top:50%;
-  width:18px;height:18px;
+  width:36px;height:36px;
+  background-image:url('../images/flower-burst-sprites.png');
+  background-size:200% 200%;
+  background-repeat:no-repeat;
   transform:translate(-50%,-50%) scale(.2);
   opacity:0;
   animation:flowerExplode var(--dur) cubic-bezier(.14,.72,.22,1) forwards;
   animation-delay:var(--delay);
 }
 .burst-flower::before{
-  content:"";
+  content:none;
   position:absolute;inset:0;
   background:var(--flower);
   border-radius:50% 0 50% 50%;
@@ -857,7 +860,7 @@ body::before{
     -8px 0 0 -2px var(--flower);
 }
 .burst-flower::after{
-  content:"";
+  content:none;
   position:absolute;left:50%;top:50%;
   width:5px;height:5px;border-radius:50%;
   background:#f1cf68;
@@ -931,7 +934,7 @@ body::before{
 
 @media(max-width:740px){
   .heart-gate{width:min(82vw,285px)}
-  .burst-flower{width:15px;height:15px}
+  .burst-flower{width:30px;height:30px}
 }
 
 

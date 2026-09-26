@@ -203,19 +203,20 @@ weddingMusic.addEventListener('ended', async ()=>{
 
 
 /* Floral heart-opening effect */
-const burstPalette = ['#f7b7c8','#f3d67a','#c9a7e8','#f6c58f','#e99ab7','#f2d9ad','#b9d7b1'];
+const burstSprites = ['0% 0%', '100% 0%', '0% 100%', '100% 100%'];
 
 function createFlowerBurst(){
   const burst = document.getElementById('flowerBurst');
   burst.innerHTML = '';
-  const count = 34;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const count = window.innerWidth < 740 ? 20 : 28;
 
   for(let i=0;i<count;i++){
     const flower = document.createElement('span');
     flower.className = 'burst-flower';
 
     const angle = (Math.PI * 2 * i / count) + (Math.random()-.5)*.25;
-    const distance = 105 + Math.random()*125;
+    const distance = Math.min(window.innerWidth * .42, 210) * (.5 + Math.random() * .5);
     const x = Math.cos(angle) * distance;
     const y = Math.sin(angle) * distance;
 
@@ -225,7 +226,7 @@ function createFlowerBurst(){
     flower.style.setProperty('--scale', `${(0.55+Math.random()*.9).toFixed(2)}`);
     flower.style.setProperty('--dur', `${(0.9+Math.random()*.45).toFixed(2)}s`);
     flower.style.setProperty('--delay', `${(Math.random()*.11).toFixed(2)}s`);
-    flower.style.setProperty('--flower', burstPalette[Math.floor(Math.random()*burstPalette.length)]);
+    flower.style.backgroundPosition = burstSprites[i % burstSprites.length];
 
     burst.appendChild(flower);
   }

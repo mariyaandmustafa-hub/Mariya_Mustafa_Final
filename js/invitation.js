@@ -1,4 +1,19 @@
 
+const queryParams = new URLSearchParams(window.location.search);
+const version = queryParams.get('v') ?? queryParams.get('V');
+
+if (version === '1' || version === '2') {
+  const excludedEvent = version === '1' ? 'kattan-kutvanu' : 'mehndi';
+  document.getElementById(excludedEvent).remove();
+  document.querySelector('.hero-copy').textContent =
+    'invite you to celebrate two beautiful days of joy, tradition and togetherness';
+  document.querySelector('.section-heading .kicker').textContent = 'Two Days of Celebration';
+
+  if (version === '1') {
+    document.querySelector('.hero-date span').textContent = '24';
+  }
+}
+
 const openBtn = document.getElementById('openInvite');
 const musicToggle = document.getElementById('musicToggle');
 const heroContent = document.getElementById('heroContent');

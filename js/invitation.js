@@ -24,6 +24,7 @@ const bottomNav = document.getElementById('bottomNav');
 openBtn.addEventListener('click', () => {
   if(openBtn.classList.contains('open')) return;
   openBtn.classList.add('open');
+  stopHeartbeat();
   createFlowerBurst();
   startMusic();
 
@@ -42,6 +43,77 @@ openBtn.addEventListener('click', () => {
 });
 
 const target = new Date('2026-11-25T19:00:00+05:30');
+
+// Synthesize a soft two-part heartbeat without an additional audio download.
+const heartbeatToggle = document.getElementById('heartbeatToggle');
+let heartbeatContext = null;
+let heartbeatTimer = null;
+let heartbeatOutput = null;
+
+function heartbeatPulse(){
+  if (!heartbeatContext || heartbeatContext.state !== 'running' ||
+      document.hidden || openBtn.classList.contains('open')) return;
+  const now = heartbeatContext.currentTime;
+  [0, .22].forEach((offset, index) => {
+    const oscillator = heartbeatContext.createOscillator();
+    const envelope = heartbeatContext.createGain();
+    const start = now + offset;
+    oscillator.frequency.setValueAtTime(index ? 100 : 120, start);
+    oscillator.frequency.exponentialRampToValueAtTime(48, start + .16);
+    envelope.gain.setValueAtTime(0, start);
+    envelope.gain.linearRampToValueAtTime(index ? .24 : .34, start + .015);
+    envelope.gain.exponentialRampToValueAtTime(.001, start + .19);
+    oscillator.connect(envelope);
+    envelope.connect(heartbeatOutput);
+    oscillator.start(start);
+    oscillator.stop(start + .21);
+    oscillator.onended = () => { oscillator.disconnect(); envelope.disconnect(); };
+  });
+}
+
+function updateHeartbeat(){
+  if (openBtn.classList.contains('open')) return;
+  const playing = heartbeatContext?.state === 'running';
+  if (playing) {
+    if (document.activeElement === heartbeatToggle) openBtn.focus({preventScroll:true});
+    heartbeatToggle.hidden = true;
+  }
+  if (playing && heartbeatTimer === null) {
+    heartbeatPulse();
+    heartbeatTimer = setInterval(heartbeatPulse, 1500);
+  }
+}
+
+function stopHeartbeat(){
+  clearInterval(heartbeatTimer);
+  heartbeatTimer = null;
+  heartbeatToggle.hidden = true;
+  if (heartbeatOutput) heartbeatOutput.gain.value = 0;
+  if (heartbeatContext && heartbeatContext.state !== 'closed') {
+    heartbeatContext.close().catch(() => {});
+  }
+}
+
+try {
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+  if (AudioContextClass) {
+    heartbeatContext = new AudioContextClass();
+    heartbeatOutput = heartbeatContext.createGain();
+    heartbeatOutput.connect(heartbeatContext.destination);
+    heartbeatToggle.hidden = false;
+    heartbeatContext.addEventListener('statechange', updateHeartbeat);
+    updateHeartbeat();
+    heartbeatContext.resume().then(updateHeartbeat).catch(() => {});
+  }
+} catch (error) {
+  // Opening the invitation and playing its music remain available.
+  heartbeatToggle.hidden = true;
+}
+
+heartbeatToggle.addEventListener('click', () => {
+  if (!heartbeatContext || openBtn.classList.contains('open')) return;
+  heartbeatContext.resume().then(updateHeartbeat).catch(() => {});
+});
 
 function updateCountdown(){
   const now = new Date();

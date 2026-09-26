@@ -1411,3 +1411,37 @@ button,a{
 @media(prefers-reduced-motion:reduce){
   .invite-side-borders{transition:none}
 }
+
+/* Separate artwork from details so long addresses never obscure it. */
+#kattan-kutvanu{--event-art:url('../images/event-kattan-mortar.png')}
+#mehndi{--event-art:url('../images/event-mehndi.png')}
+#wedding-reception{--event-art:url('../images/event-reception.png')}
+#invite .event-card{
+  --card-padding:30px;
+  background:#fffaf0;
+  padding:var(--card-padding) var(--card-padding) 0;
+}
+.event-artwork{
+  margin:24px calc(-1 * var(--card-padding)) 0;
+  aspect-ratio:1.45;
+  background:var(--event-art) center bottom / 100% auto no-repeat;
+  border-radius:0 0 23px 23px;
+  mask-image:linear-gradient(transparent,#000 15%);
+  -webkit-mask-image:linear-gradient(transparent,#000 15%);
+}
+#invite .event-card .event-time,
+#invite .event-card .venue > span{color:#896014}
+#invite .event-card .venue p{color:#65564b}
+#invite .event-card .map-btn{background-color:rgba(255,250,240,.94)}
+#invite .event-card .map-btn:hover{background-color:#b21f59}
+@media(max-width:740px){
+  #invite .event-card:nth-child(n){
+    --card-padding:18px;
+    padding:24px var(--card-padding) 0;
+  }
+  .event-artwork{border-radius:0 0 19px 19px}
+  #invite .event-card .venue p{font-size:16px;line-height:1.6}
+  #invite .event-card .map-btn{min-height:48px;white-space:normal}
+  #invite .event-card h3{font-size:clamp(34px,9vw,44px);line-height:1.15}
+  #invite .event-date-block{flex-wrap:wrap}
+}

@@ -12,6 +12,16 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
+html.invite-locked,
+html.invite-locked body{
+  height:100svh;
+  overflow:hidden;
+  overscroll-behavior:none;
+}
+html.invite-locked #invite{display:none}
+html.invite-locked .hero-content,
+html.invite-locked .bottom-nav,
+html.invite-locked .music-toggle{visibility:hidden}
 body{
   margin:0;
   color:var(--ink);
@@ -1295,12 +1305,20 @@ button,a{
 /* Keep the opening artwork proportional, including on landscape screens. */
 .hero:not(.invitation-open){
   padding:0;
+  height:100vh;
+  height:100svh;
+  min-height:0;
 }
 .hero-floral-frame{
   position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
+  inset:auto;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(100vw,56.28vh);
+  width:min(100vw,56.28svh);
+  height:auto;
+  aspect-ratio:941 / 1672;
   object-fit:contain;
   pointer-events:none;
   user-select:none;
@@ -1310,11 +1328,17 @@ button,a{
 }
 .hero .heart-wrap{
   z-index:1;
-  width:min(62vw,34svh,320px);
+  grid-area:1 / 1;
+  width:min(58vw,32vh,280px);
+  width:min(58vw,32svh,280px);
 }
 .hero .heart-gate{
+  display:block;
+  margin-inline:auto;
   width:100%;
   max-width:280px;
+  height:auto;
+  aspect-ratio:1;
 }
 .hero .tap-hint{
   color:#8f1647;
@@ -1350,9 +1374,11 @@ button,a{
   bottom:0;
   width:var(--invite-border-width);
   background-image:url('../images/royal-floral-side-border.png');
-  background-position:center;
-  background-size:auto 100%;
-  background-repeat:no-repeat;
+  /* The floral artwork occupies the middle third of the transparent PNG.
+     Fit that strip to the rail and repeat vertically without stretching it. */
+  background-position:center top;
+  background-size:300% auto;
+  background-repeat:repeat-y;
   background-color:transparent;
 }
 .invite-side-border.left{left:0}

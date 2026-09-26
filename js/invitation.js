@@ -34,6 +34,7 @@ openBtn.addEventListener('click', () => {
     heroContent.classList.add('show');
     heroContent.setAttribute('aria-hidden','false');
     invite.classList.remove('hidden');
+    document.documentElement.classList.remove('invite-locked');
     bottomNav.classList.add('show');
     musicToggle.classList.add('show');
     startAmbientFlowers();

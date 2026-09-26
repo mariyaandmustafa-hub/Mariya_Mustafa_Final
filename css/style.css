@@ -1291,3 +1291,90 @@ button,a{
     padding:9px 9px;
   }
 }
+
+/* Keep the opening artwork proportional, including on landscape screens. */
+.hero:not(.invitation-open){
+  padding:0;
+}
+.hero-floral-frame{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+  z-index:0;
+  opacity:1;
+  transition:opacity 1s ease;
+}
+.hero .heart-wrap{
+  z-index:1;
+  width:min(62vw,34svh,320px);
+}
+.hero .heart-gate{
+  width:100%;
+  max-width:280px;
+}
+.hero .tap-hint{
+  color:#8f1647;
+  font-size:clamp(9px,2.4vw,11px);
+  line-height:1.7;
+  letter-spacing:.16em;
+  margin:12px auto 0;
+  text-wrap:balance;
+}
+.hero.invitation-open .hero-floral-frame{
+  opacity:0;
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-floral-frame{transition:none}
+}
+
+/* Fixed floral edges stay in place while the opened invitation scrolls. */
+:root{--invite-border-width:clamp(24px,6vw,96px)}
+.invite-side-borders{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  pointer-events:none;
+  user-select:none;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 1s ease,visibility 1s ease;
+}
+.invite-open .invite-side-borders{opacity:1;visibility:visible}
+.invite-side-border{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:var(--invite-border-width);
+  background-image:url('../images/royal-floral-side-border.png');
+  background-position:center;
+  background-size:auto 100%;
+  background-repeat:no-repeat;
+  background-color:transparent;
+}
+.invite-side-border.left{left:0}
+.invite-side-border.right{right:0;transform:scaleX(-1)}
+#invite{
+  padding-inline:calc(var(--invite-border-width) + 8px);
+}
+.hero.invitation-open .hero-content{
+  max-width:calc(100% - 2 * var(--invite-border-width) - 24px);
+}
+@media(max-width:740px){
+  #invite > section{padding-inline:10px}
+  #invite .timeline::before{display:none}
+  #invite .event-card:nth-child(n){
+    width:100%;
+    margin-left:0;
+    margin-right:0;
+  }
+  #invite .event-card::after{display:none}
+  #invite .countdown{gap:4px}
+  #invite .countdown strong{font-size:clamp(26px,7vw,44px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .invite-side-borders{transition:none}
+}

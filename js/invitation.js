@@ -29,6 +29,8 @@ openBtn.addEventListener('click', () => {
 
   setTimeout(() => {
     heartWrap.classList.add('fade');
+    document.getElementById('home').classList.add('invitation-open');
+    document.body.classList.add('invite-open');
     heroContent.classList.add('show');
     heroContent.setAttribute('aria-hidden','false');
     invite.classList.remove('hidden');

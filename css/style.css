@@ -1525,3 +1525,18 @@ button,a{
   position:relative;
   margin-inline:auto;
 }
+@media(max-width:740px){
+  .wedding-hashtag{
+    width:clamp(110px,32vw,145px);
+    margin:4px auto 12px;
+  }
+  .hero.invitation-open{
+    padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));
+  }
+  .hero.invitation-open .scroll-cue{
+    margin-top:6px;
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+}

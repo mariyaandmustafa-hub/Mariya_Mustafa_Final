@@ -1527,7 +1527,7 @@ button,a{
 }
 @media(max-width:740px){
   .wedding-hashtag{
-    width:clamp(110px,32vw,145px);
+    width:clamp(140px,39vw,170px);
     margin:4px auto 12px;
   }
   .hero.invitation-open{
@@ -1537,6 +1537,19 @@ button,a{
     margin-top:6px;
     min-height:44px;
     display:inline-flex;
+    flex-direction:column;
     align-items:center;
   }
+}
+.scroll-cue .scroll-arrows{
+  display:block;
+  margin:4px auto 0;
+  animation:scrollNudge 1.8s ease-in-out infinite;
+}
+@keyframes scrollNudge{
+  0%,100%{transform:translateY(0);opacity:.5}
+  50%{transform:translateY(5px);opacity:1}
+}
+@media(prefers-reduced-motion:reduce){
+  .scroll-cue .scroll-arrows{animation:none}
 }

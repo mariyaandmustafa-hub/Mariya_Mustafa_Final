@@ -1,6 +1,12 @@
 
 const queryParams = new URLSearchParams(window.location.search);
 const version = queryParams.get('v') ?? queryParams.get('V');
+const rsvpLink = document.querySelector('.rsvp-form-link');
+if (version === '1') {
+  rsvpLink.href = 'https://forms.gle/Y4nPSSMdtr9K6ZGTA';
+} else if (version === '2') {
+  rsvpLink.href = 'https://forms.gle/cGq9nQZTcB157C4n9';
+}
 
 if (version === '1' || version === '2') {
   const excludedEvent = version === '1' ? 'kattan-kutvanu' : 'mehndi';

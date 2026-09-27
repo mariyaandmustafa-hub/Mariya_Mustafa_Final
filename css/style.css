@@ -1511,3 +1511,17 @@ button,a{
   cursor:pointer;
 }
 .heartbeat-toggle:focus-visible{outline:2px solid #8f1647;outline-offset:3px}
+
+/* Keep the hashtag proportional and allow the revealed hero to grow on phones. */
+.wedding-hashtag{
+  display:block;
+  width:clamp(160px,46vw,230px);
+  max-width:90%;
+  height:auto;
+  margin:18px auto;
+}
+.hero.invitation-open .heart-wrap{position:absolute}
+.hero.invitation-open .hero-content{
+  position:relative;
+  margin-inline:auto;
+}

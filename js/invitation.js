@@ -6,6 +6,8 @@ if (version === '1') {
   rsvpLink.href = 'https://forms.gle/Y4nPSSMdtr9K6ZGTA';
 } else if (version === '2') {
   rsvpLink.href = 'https://forms.gle/cGq9nQZTcB157C4n9';
+} else if (version === '3') {
+  rsvpLink.href = 'https://forms.gle/5Ywrksw3DYhzja387';
 }
 
 if (version === '1' || version === '2') {
@@ -18,6 +20,23 @@ if (version === '1' || version === '2') {
   if (version === '1') {
     document.querySelector('.hero-date span').textContent = '24';
   }
+}
+
+if (version === '3') {
+  document.getElementById('kattan-kutvanu').remove();
+  document.getElementById('mehndi').remove();
+  document.querySelector('.hero-copy').textContent =
+    'invite you to celebrate our wedding reception';
+  const heroDate = document.querySelector('.hero-date');
+  heroDate.querySelector('span').textContent = '25';
+  heroDate.querySelector('i').remove();
+  heroDate.querySelectorAll('span')[1].remove();
+  document.getElementById('celebrations').classList.add('reception-only');
+  document.querySelector('.section-heading .kicker').textContent = 'Join Us';
+  document.querySelector('.section-heading h2').textContent = 'In Our Celebration';
+  document.title = 'Mariya & Mustafa | Wedding Reception';
+  document.querySelector('meta[name="description"]').content =
+    'Wedding reception of Mariya & Mustafa — 25 November 2026, Mumbai.';
 }
 
 const openBtn = document.getElementById('openInvite');
